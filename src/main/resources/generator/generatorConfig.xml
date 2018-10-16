@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org/DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--targetRuntime="MyBatis3Simple"主要是为了避免生成与Example相关的代码和方法，如果需要则设置为MyBatis3-->
+    <!--defaultModelType设置为flat,目的是使每个表只生成一个实体类，当没有复杂的类继承时，使用起来更方便-->
+    <context id="MySqlContext" targetRuntime="MyBatis3Simple"
+             defaultModelType = "flat">
+        <!--因为使用的数据库为MySQL，所以前后分隔符都设置为"`"-->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!--注释生成器，设置了生成数据库的注释信息，并且禁止在注释中生成日期-->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <!--设置了要连接的数据源信息-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/mybatis_test"
+                        userId="root"
+                        password="root">
+
+        </jdbcConnection>
+
+        <!--配置生成的包名为test.model-->
+        <javaModelGenerator targetPackage="test.model" targetProject="src\main\java">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--配置生成的Mapper.xml文件的位置-->
+        <sqlMapGenerator targetPackage="test.xml"
+                         targetProject="\src\main\resources"/>
+
+        <!--配置生成Mapper接口的位置，这里采用的XMLMAPPER类型，接口和XML完全分离-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="test.dao"
+                             targetProject="src\main\java"/>
+
+        <!--最后table使用通配符"%"匹配数据库中所有的表，所有表都有主键自增的id字段，
+        sqlStatement针对当前数据库配置MySQL-->
+        <table tableName="%">
+            <generatedKey column="id" sqlStatement="MySql"/>
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </context>
+
+</generatorConfiguration>

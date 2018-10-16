@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--配置使用LOG4J输出日志-->
+        <setting name="logImpl" value="LOG4J"/>
+        <!--其他配置-->
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+         <!--当参数为true时，对任意延迟属性的调用会使带有延迟加载属性的对象完整加载，反之，则按需加载-->
+        <setting name="aggressiveLazyLoading" value="false" />
+        <!--二次缓存配置项，默认就是开启状态-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <package name="tk.mybatis.simple.model" />
+    </typeAliases>
+
+    <typeHandlers>
+        <typeHandler javaType="tk.mybatis.simple.type.Enabled"
+                     handler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+    </typeHandlers>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC">
+                <property name="" value=""/>
+            </transactionManager>
+            <dataSource type="UNPOOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://localhost:3306/mybatis_test" />
+                <property name="username" value="root" />
+                <property name="password" value="root" />
+            </dataSource>
+        </environment>
+    </environments>
+    <databaseIdProvider type="DB_VENDOR"/>
+    
+    <plugins>
+        <plugin interceptor="tk.mybatis.simple.plugin.CameHumpInterceptor"></plugin>
+    </plugins>
+
+    <mappers>
+        <mapper resource="tk/mybatis/simple/mapper/CountryMapper.xml" />
+        <mapper resource="tk/mybatis/simple/mapper/PrivilegeMapper.xml" />
+        <mapper resource="tk/mybatis/simple/mapper/RoleMapper.xml" />
+        <mapper resource="tk/mybatis/simple/mapper/RolePrivilegeMapper.xml" />
+        <mapper resource="tk/mybatis/simple/mapper/UserMapper.xml" />
+        <mapper resource="tk/mybatis/simple/mapper/UserRoleMapper.xml" />
+        <!--配置每个mapper比较麻烦，有一种比较简单的配置就是package,此处的package指的是Mapper接口的包名-->
+       <!-- <package name="tk.mybatis.simple.mapper" />-->
+    </mappers>
+</configuration>
