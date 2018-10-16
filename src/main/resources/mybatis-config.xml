@@ -18,6 +18,12 @@
     <typeAliases>
         <package name="tk.mybatis.simple.model" />
     </typeAliases>
+    <plugins>
+        <plugin interceptor="tk.mybatis.simple.plugin.CameHumpInterceptor" />
+        <plugin interceptor="tk.mybatis.simple.plugin.PageInterceptor">
+            <property name="dialect" value="tk.mybatis.simple.plugin.MySqlDialect"/>
+        </plugin>
+    </plugins>
 
     <typeHandlers>
         <typeHandler javaType="tk.mybatis.simple.type.Enabled"
@@ -38,10 +44,8 @@
         </environment>
     </environments>
     <databaseIdProvider type="DB_VENDOR"/>
-    
-    <plugins>
-        <plugin interceptor="tk.mybatis.simple.plugin.CameHumpInterceptor"></plugin>
-    </plugins>
+
+
 
     <mappers>
         <mapper resource="tk/mybatis/simple/mapper/CountryMapper.xml" />
@@ -53,4 +57,5 @@
         <!--配置每个mapper比较麻烦，有一种比较简单的配置就是package,此处的package指的是Mapper接口的包名-->
        <!-- <package name="tk.mybatis.simple.mapper" />-->
     </mappers>
+
 </configuration>

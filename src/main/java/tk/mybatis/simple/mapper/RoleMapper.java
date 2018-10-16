@@ -1,6 +1,7 @@
 package tk.mybatis.simple.mapper;
 
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.session.RowBounds;
 import tk.mybatis.simple.model.SysRole;
 import tk.mybatis.simple.model.SysUser;
 
@@ -88,6 +89,8 @@ public interface RoleMapper {
      * @return
      */
     List<SysRole> selectRoleByUserIdChoose(Long userId);
+
+    List<SysRole> selectAll(RowBounds rowBounds);
 
 
 
